@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.weatherapp.mvvm.WeatherViewModel" />
+            type="com.dpott197.weather.mvvm.WeatherViewModel" />
     </data>
 
     <ScrollView
