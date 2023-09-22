@@ -1,6 +1,7 @@
 package com.dpott197.weather.adapter
 
 import android.os.Build
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,65 +54,11 @@ class ForecastAdapter : RecyclerView.Adapter<ForecastHolder>() {
 
         holder.dateDayName.text = dateanddayname
 
-        for (i in forecastObject.weather) {
-            if (i.icon == "01d") {
-                holder.imageGraphic.setImageResource(R.drawable.oned)
-                holder.smallIcon.setImageResource(R.drawable.oned)
-            }
-
-            if (i.icon == "01n") {
-                holder.imageGraphic.setImageResource(R.drawable.onen)
-                holder.smallIcon.setImageResource(R.drawable.onen)
-            }
-
-            if (i.icon == "02d") {
-                holder.imageGraphic.setImageResource(R.drawable.twod)
-                holder.smallIcon.setImageResource(R.drawable.twod)
-            }
-
-            if (i.icon == "02n") {
-                holder.imageGraphic.setImageResource(R.drawable.twon)
-                holder.smallIcon.setImageResource(R.drawable.twon)
-            }
-
-            if (i.icon == "03d" || i.icon == "03n") {
-                holder.imageGraphic.setImageResource(R.drawable.threedn)
-                holder.smallIcon.setImageResource(R.drawable.threedn)
-            }
-
-            if (i.icon == "10d") {
-                holder.imageGraphic.setImageResource(R.drawable.tend)
-                holder.smallIcon.setImageResource(R.drawable.tend)
-            }
-
-            if (i.icon == "10n") {
-                holder.imageGraphic.setImageResource(R.drawable.tenn)
-                holder.smallIcon.setImageResource(R.drawable.tenn)
-            }
-
-            if (i.icon == "04d" || i.icon == "04n") {
-                holder.imageGraphic.setImageResource(R.drawable.fourdn)
-                holder.smallIcon.setImageResource(R.drawable.fourdn)
-            }
-
-            if (i.icon == "09d" || i.icon == "09n") {
-                holder.imageGraphic.setImageResource(R.drawable.ninedn)
-                holder.smallIcon.setImageResource(R.drawable.ninedn)
-            }
-
-            if (i.icon == "11d" || i.icon == "11n") {
-                holder.imageGraphic.setImageResource(R.drawable.elevend)
-                holder.smallIcon.setImageResource(R.drawable.elevend)
-            }
-
-            if (i.icon == "13d" || i.icon == "13n") {
-                holder.imageGraphic.setImageResource(R.drawable.thirteend)
-                holder.smallIcon.setImageResource(R.drawable.thirteend)
-            }
-
-            if (i.icon == "50d" || i.icon == "50n") {
-                holder.imageGraphic.setImageResource(R.drawable.fiftydn)
-                holder.smallIcon.setImageResource(R.drawable.fiftydn)
+        for (weather in forecastObject.weather) {
+            if (weather.icon != null && !TextUtils.isEmpty(weather.icon)) {
+                val weatherIcon = WeatherIcon.fromIconCode(weather.icon!!)
+                holder.imageGraphic.setImageResource(weatherIcon!!.drawableRes)
+                holder.smallIcon.setImageResource(weatherIcon!!.drawableRes)
             }
         }
     }
@@ -130,3 +77,4 @@ class ForecastHolder(itemView: View) : ViewHolder(itemView){
     val smallIcon : ImageView = itemView.findViewById(R.id.smallIcon)
     val dateDayName : TextView = itemView.findViewById(R.id.dayDateText)
 }
+

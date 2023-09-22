@@ -2,6 +2,7 @@ package com.dpott197.weather.adapter
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -52,52 +53,9 @@ class CurrentWeatherAdapter : RecyclerView.Adapter<TodayHolder>() {
         Log.e("time" , " formatted time:${formattedTime}, timeofapi: ${partafterspace}")
 
         for (weather in todayForeCast.weather){
-            if (weather.icon == "01d") {
-                holder.imageDisplay.setImageResource(R.drawable.oned)
-            }
-
-            if (weather.icon == "01n") {
-                holder.imageDisplay.setImageResource(R.drawable.onen)
-            }
-
-            if (weather.icon == "02d") {
-                holder.imageDisplay.setImageResource(R.drawable.twod)
-            }
-
-            if (weather.icon == "02n") {
-                holder.imageDisplay.setImageResource(R.drawable.twon)
-            }
-
-            if (weather.icon == "03d" || weather.icon == "03n") {
-                holder.imageDisplay.setImageResource(R.drawable.threedn)
-            }
-
-            if (weather.icon == "10d") {
-                holder.imageDisplay.setImageResource(R.drawable.tend)
-            }
-
-            if (weather.icon == "10n") {
-                holder.imageDisplay.setImageResource(R.drawable.tenn)
-            }
-
-            if (weather.icon == "04d" || weather.icon == "04n") {
-                holder.imageDisplay.setImageResource(R.drawable.fourdn)
-            }
-
-            if (weather.icon == "09d" || weather.icon == "09n") {
-                holder.imageDisplay.setImageResource(R.drawable.ninedn)
-            }
-
-            if (weather.icon == "11d" || weather.icon == "11n") {
-                holder.imageDisplay.setImageResource(R.drawable.elevend)
-            }
-
-            if (weather.icon == "13d" || weather.icon == "13n") {
-                holder.imageDisplay.setImageResource(R.drawable.thirteend)
-            }
-
-            if (weather.icon == "50d" || weather.icon == "50n") {
-                holder.imageDisplay.setImageResource(R.drawable.fiftydn)
+            if (weather.icon != null && !TextUtils.isEmpty(weather.icon)) {
+                val weatherIcon = WeatherIcon.fromIconCode(weather.icon!!)
+                holder.imageDisplay.setImageResource(weatherIcon!!.drawableRes)
             }
         }
     }
