@@ -51,55 +51,52 @@ class CurrentWeatherAdapter : RecyclerView.Adapter<TodayHolder>() {
 
         Log.e("time" , " formatted time:${formattedTime}, timeofapi: ${partafterspace}")
 
-
-        for ( i in todayForeCast.weather){
-            if (i.icon == "01d") {
+        for (weather in todayForeCast.weather){
+            if (weather.icon == "01d") {
                 holder.imageDisplay.setImageResource(R.drawable.oned)
             }
 
-            if (i.icon == "01n") {
+            if (weather.icon == "01n") {
                 holder.imageDisplay.setImageResource(R.drawable.onen)
             }
 
-            if (i.icon == "02d") {
+            if (weather.icon == "02d") {
                 holder.imageDisplay.setImageResource(R.drawable.twod)
             }
 
-            if (i.icon == "02n") {
+            if (weather.icon == "02n") {
                 holder.imageDisplay.setImageResource(R.drawable.twon)
             }
 
-            if (i.icon == "03d" || i.icon == "03n") {
+            if (weather.icon == "03d" || weather.icon == "03n") {
                 holder.imageDisplay.setImageResource(R.drawable.threedn)
             }
 
-            if (i.icon == "10d") {
+            if (weather.icon == "10d") {
                 holder.imageDisplay.setImageResource(R.drawable.tend)
             }
 
-
-            if (i.icon == "10n") {
+            if (weather.icon == "10n") {
                 holder.imageDisplay.setImageResource(R.drawable.tenn)
             }
 
-            if (i.icon == "04d" || i.icon == "04n") {
+            if (weather.icon == "04d" || weather.icon == "04n") {
                 holder.imageDisplay.setImageResource(R.drawable.fourdn)
             }
 
-            if (i.icon == "09d" || i.icon == "09n") {
+            if (weather.icon == "09d" || weather.icon == "09n") {
                 holder.imageDisplay.setImageResource(R.drawable.ninedn)
             }
 
-            if (i.icon == "11d" || i.icon == "11n") {
+            if (weather.icon == "11d" || weather.icon == "11n") {
                 holder.imageDisplay.setImageResource(R.drawable.elevend)
             }
 
-
-            if (i.icon == "13d" || i.icon == "13n") {
+            if (weather.icon == "13d" || weather.icon == "13n") {
                 holder.imageDisplay.setImageResource(R.drawable.thirteend)
             }
 
-            if (i.icon == "50d" || i.icon == "50n") {
+            if (weather.icon == "50d" || weather.icon == "50n") {
                 holder.imageDisplay.setImageResource(R.drawable.fiftydn)
             }
         }
@@ -110,13 +107,10 @@ class CurrentWeatherAdapter : RecyclerView.Adapter<TodayHolder>() {
     }
 }
 
-
 class TodayHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
     val imageDisplay : ImageView = itemView.findViewById(R.id.imageDisplay)
     val tempDisplay : TextView = itemView.findViewById(R.id.tempDisplay)
     val timeDisplay : TextView = itemView.findViewById(R.id.timeDisplay)
-
 }
 
 
