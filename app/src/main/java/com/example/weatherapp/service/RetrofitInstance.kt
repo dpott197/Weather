@@ -1,39 +1,46 @@
 package com.example.weatherapp.service
 
-import com.example.weatherapp.Utils
-import com.example.weatherapp.Utils.Companion.BASE_URL
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
+import android.util.Log
+import com.example.weatherapp.util.Utils
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class RetrofitInstance {
 
     companion object {
+        private val prettyPrintInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            val gson = GsonBuilder().setPrettyPrinting().create()
 
+            override fun log(message: String) {
+                try {
+                    val jsonElement = JsonParser.parseString(message)
+                    val prettyJson = gson.toJson(jsonElement)
+                    Log.d("RetrofitInstance", prettyJson)
+                } catch (exception: Exception) {
+                    Log.e("RetrofitInstance", message, exception)
+                }
+            }
+        }).apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
         private val retrofit by lazy {
+            val client = OkHttpClient.Builder().addInterceptor(prettyPrintInterceptor).build()
 
-            // to log responses of retrofit
-
-            val logging = HttpLoggingInterceptor()
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-
-            val client = OkHttpClient.Builder().addInterceptor(logging).build()
-
-            Retrofit.Builder().baseUrl(Utils.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()).client(client).build()
-
+            Retrofit.Builder()
+                .baseUrl(Utils.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
         }
 
-        // we will use this to make api calls
         val api by lazy {
-
             retrofit.create(Service::class.java)
         }
-
-
     }
+
 }

@@ -1,9 +1,8 @@
 package com.example.weatherapp.service
 
-import com.example.weatherapp.ForeCast
-import com.example.weatherapp.Utils
+import com.example.weatherapp.util.Utils
+import com.example.weatherapp.model.ForeCast
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

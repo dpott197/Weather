@@ -7,33 +7,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.*
+import com.example.weatherapp.model.WeatherList
 import com.example.weatherapp.service.RetrofitInstance
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @RequiresApi(Build.VERSION_CODES.O)
-class WeatherVm : ViewModel() {
-
+class WeatherViewModel : ViewModel() {
 
     val todayWeatherLiveData = MutableLiveData<List<WeatherList>>()
     val forecastWeatherLiveData = MutableLiveData<List<WeatherList>>()
 
     val closetorexactlysameweatherdata = MutableLiveData<WeatherList?>()
     val cityName = MutableLiveData<String>()
-    val context = MyApplication.instance
-
-
-
-
-
-
 
     fun getWeather(city: String? = null, lati: String?=null, longi:String?=null) = viewModelScope.launch(Dispatchers.IO) {
         val todayWeatherList = mutableListOf<WeatherList>()
@@ -41,9 +30,7 @@ class WeatherVm : ViewModel() {
         val currentDateTime = LocalDateTime.now()
         val currentDateO = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
-
-       Log.e("ViewModelCoordinates", "$lati $longi")
-
+       Log.d("ViewModelCoordinates", "$lati $longi")
 
         val call = if (city != null) {
             RetrofitInstance.api.getWeatherByCity(city)
@@ -55,7 +42,7 @@ class WeatherVm : ViewModel() {
         val response = call.execute()
 
         if (response.isSuccessful) {
-            val weatherList = response.body()?.weatherList
+            val weatherList: ArrayList<WeatherList>? = response.body()?.weatherList
 
             cityName.postValue(response.body()?.city!!.name)
 
@@ -71,8 +58,6 @@ class WeatherVm : ViewModel() {
             closetorexactlysameweatherdata.postValue(closestWeather)
 
             todayWeatherLiveData.postValue(todayWeatherList)
-
-
         } else {
             val errorMessage = response.message()
             Log.e("CurrentWeatherError", "Error: $errorMessage")
@@ -95,35 +80,24 @@ class WeatherVm : ViewModel() {
         val response = call.execute()
 
         if (response.isSuccessful) {
-            val weatherList = response.body()?.weatherList
-
+            val weatherList: ArrayList<WeatherList>? = response.body()?.weatherList
             val currentDate = currentDateO
 
             weatherList?.forEach { weather ->
-
                 if (!weather.dtTxt!!.split("\\s".toRegex()).contains(currentDate)) {
                     if (weather.dtTxt!!.substring(11, 16) == "12:00") {
                         forecastWeatherList.add(weather)
-
-
                     }
                 }
             }
 
             forecastWeatherLiveData.postValue(forecastWeatherList)
-
-
-
             Log.d("Forecast LiveData", forecastWeatherLiveData.value.toString())
         } else {
             val errorMessage = response.message()
             Log.e("CurrentWeatherError", "Error: $errorMessage")
         }
     }
-
-
-
-
 
     private fun findClosestWeather(weatherList: List<WeatherList>): WeatherList? {
         val systemTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
@@ -147,6 +121,5 @@ class WeatherVm : ViewModel() {
         val parts = time.split(":")
         return parts[0].toInt() * 60 + parts[1].toInt()
     }
-
 
 }

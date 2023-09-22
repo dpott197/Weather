@@ -1,44 +1,39 @@
-package com.example.weatherapp
+package com.example.weatherapp.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
-import android.location.LocationManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.weatherapp.util.NotificationHelper
+import com.example.weatherapp.R
+import com.example.weatherapp.util.SharedPrefs
+import com.example.weatherapp.util.Utils
 import com.example.weatherapp.adapter.WeatherToday
 import com.example.weatherapp.databinding.TestlayoutBinding
-import com.example.weatherapp.mvvm.WeatherVm
+import com.example.weatherapp.model.WeatherList
+import com.example.weatherapp.mvvm.WeatherViewModel
 import com.example.weatherapp.service.LocationHelper
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import kotlinx.coroutines.CoroutineScope
-
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viM: WeatherVm
+    lateinit var viM: WeatherViewModel
 
     lateinit var adapter: WeatherToday
 
@@ -62,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         val notificationhelper = NotificationHelper(this)
 
         binding = DataBindingUtil.setContentView(this, R.layout.testlayout)
-        viM = ViewModelProvider(this).get(WeatherVm::class.java)
+        viM = ViewModelProvider(this).get(WeatherViewModel::class.java)
 
         binding.lifecycleOwner = this
         binding.vm = viM
@@ -279,7 +274,7 @@ class MainActivity : AppCompatActivity() {
         binding.next5Days.setOnClickListener {
 
 
-            startActivity(Intent(this, ForeCastActivity::class.java))
+            startActivity(Intent(this, ForecastActivity::class.java))
 
 
         }

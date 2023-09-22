@@ -1,16 +1,17 @@
-package com.example.weatherapp
+package com.example.weatherapp.util
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.weatherapp.R
+import com.example.weatherapp.activity.MainActivity
 
 class NotificationHelper(private val context: Context) {
 

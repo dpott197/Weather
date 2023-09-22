@@ -1,13 +1,12 @@
 package com.example.weatherapp
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
+import com.example.weatherapp.util.SharedPrefs
 
-class MyApplication : Application() {
+class WeatherApplication : Application() {
 
     companion object{
-        lateinit var instance : MyApplication
+        lateinit var instance : WeatherApplication
     }
 
     override fun onCreate(){

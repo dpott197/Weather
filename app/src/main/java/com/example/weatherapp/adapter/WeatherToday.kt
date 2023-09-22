@@ -11,28 +11,19 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
-import com.example.weatherapp.WeatherList
-import java.lang.Math.abs
+import com.example.weatherapp.model.WeatherList
 import java.text.SimpleDateFormat
 import java.time.*
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class WeatherToday : RecyclerView.Adapter<TodayHolder>() {
 
     private var listOfTodayWeather = listOf<WeatherList>()
 
-
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodayHolder {
-
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.todayforecastlist, parent, false)
         return TodayHolder(view)
-
-
     }
 
     override fun getItemCount(): Int {

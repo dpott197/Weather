@@ -1,39 +1,35 @@
-package com.example.weatherapp
+package com.example.weatherapp.activity
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.R
 import com.example.weatherapp.adapter.ForeCastAdapter
-import com.example.weatherapp.mvvm.WeatherVm
+import com.example.weatherapp.model.WeatherList
+import com.example.weatherapp.mvvm.WeatherViewModel
 import com.example.weatherapp.service.LocationHelper
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.example.weatherapp.util.SharedPrefs
+import com.example.weatherapp.util.Utils
 
-class ForeCastActivity : AppCompatActivity() {
-
+class ForecastActivity : AppCompatActivity() {
+    companion object {
+        private val LOG_TAG = ForecastActivity::class.qualifiedName
+    }
 
     private lateinit var adapterForeCastAdapter: ForeCastAdapter
-    lateinit var viM : WeatherVm
+    lateinit var viM : WeatherViewModel
     lateinit var rvForeCast: RecyclerView
 
-
-    var longi : String = ""
-    var lati: String = ""
-
-
     private lateinit var locationHelper: LocationHelper
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +40,7 @@ class ForeCastActivity : AppCompatActivity() {
 
 
 
-        viM = ViewModelProvider(this).get(WeatherVm::class.java)
+        viM = ViewModelProvider(this).get(WeatherViewModel::class.java)
 
         locationHelper = LocationHelper(this)
 
@@ -90,28 +86,11 @@ class ForeCastActivity : AppCompatActivity() {
 
 
         viM.forecastWeatherLiveData.observe(this, Observer {
-
             val setNewlist = it as List<WeatherList>
-
-
-
-            Log.d("Forecast LiveData", setNewlist.toString())
-
-
-
+            Log.d(LOG_TAG, setNewlist.toString())
             adapterForeCastAdapter.setList(setNewlist)
-
-
             rvForeCast.adapter = adapterForeCastAdapter
-
-
-
         })
-
-
-
-
-
     }
 
 

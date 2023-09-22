@@ -1,7 +1,6 @@
 package com.example.weatherapp.adapter
 
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.weatherapp.R
 
-import com.example.weatherapp.WeatherList
+import com.example.weatherapp.model.WeatherList
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class ForeCastAdapter : RecyclerView.Adapter<ForeCastHolder>() {
