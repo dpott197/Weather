@@ -26,7 +26,7 @@ class ForecastActivity : AppCompatActivity() {
     }
 
     private lateinit var adapterForeCastAdapter: ForeCastAdapter
-    lateinit var viM : WeatherViewModel
+    lateinit var weatherViewModel : WeatherViewModel
     lateinit var rvForeCast: RecyclerView
 
     private lateinit var locationHelper: LocationHelper
@@ -40,7 +40,7 @@ class ForecastActivity : AppCompatActivity() {
 
 
 
-        viM = ViewModelProvider(this).get(WeatherViewModel::class.java)
+        weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
 
         locationHelper = LocationHelper(this)
 
@@ -59,14 +59,9 @@ class ForecastActivity : AppCompatActivity() {
 
 
 
-        if (city!=null){
-
-
-            viM.getForecastUpcoming(city)
-
+        if (city != null){
+            weatherViewModel.getForecastUpcoming(city)
         } else {
-
-
             if (locationHelper.isLocationPermissionGranted()) {
                 // Permission is granted, request location updates
                 requestLocationUpdates()
@@ -78,23 +73,15 @@ class ForecastActivity : AppCompatActivity() {
                     Utils.LOCATION_PERMISSION_REQUEST_CODE
                 )
             }
-
-
         }
 
-
-
-
-        viM.forecastWeatherLiveData.observe(this, Observer {
+        weatherViewModel.forecastWeatherLiveData.observe(this, Observer {
             val setNewlist = it as List<WeatherList>
             Log.d(LOG_TAG, setNewlist.toString())
             adapterForeCastAdapter.setList(setNewlist)
             rvForeCast.adapter = adapterForeCastAdapter
         })
     }
-
-
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun requestLocationUpdates() {
@@ -103,15 +90,14 @@ class ForecastActivity : AppCompatActivity() {
             val latitude = location.latitude
             val longitude = location.longitude
 
-            viM.getForecastUpcoming(null, latitude.toString(), longitude.toString())
+            weatherViewModel.getForecastUpcoming(null, latitude.toString(), longitude.toString())
             logLocation(latitude, longitude)
         }
     }
 
     private fun logLocation(latitude: Double, longitude: Double) {
         // Log the latitude and longitude
-        val message = "Latitude: $latitude, Longitude: $longitude"
-
+        val message = "Latitude: $latitude\nLongitude: $longitude"
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
