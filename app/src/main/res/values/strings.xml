@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="location_permission_denied">Location permission denied</string>
+    <string name="chance_of_rain">Chance of rain</string>
 </resources>

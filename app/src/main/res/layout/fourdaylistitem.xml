@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:backgroundTint="#80A9A9A9"
+    android:backgroundTint="@color/silver_chalice"
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp">
 
@@ -14,7 +15,6 @@
         android:layout_margin="10dp">
 
         <RelativeLayout
-
             android:id="@+id/rel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,14 +29,12 @@
                 android:textSize="15sp"
                 android:textStyle="italic" />
 
-
             <ImageView
                 android:id="@+id/imageGraphic"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="18dp"
                 android:src="@drawable/oned" />
-
 
             <TextView
                 android:id="@+id/tempDisplayForeCast"
@@ -58,7 +56,6 @@
             android:layout_toEndOf="@id/rel"
             android:orientation="horizontal">
 
-            <!-- Column 1 -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -73,7 +70,6 @@
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/cloud" />
 
-
                 <TextView
                     android:id="@+id/weatherDescr"
                     android:layout_width="match_parent"
@@ -82,23 +78,19 @@
                     android:text="Overcast"
                     android:textColor="@android:color/white" />
 
-
             </LinearLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-
                 android:layout_margin="4dp"
                 android:background="@android:color/white" />
 
-            <!-- Column 2 -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-
                 android:orientation="vertical">
 
                 <ImageView
@@ -115,31 +107,26 @@
                     android:text="10%"
                     android:textColor="@android:color/white" />
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Wind Speed"
-
                     android:textColor="@android:color/white" />
 
-
             </LinearLayout>
-
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:background="@android:color/white" />
-            <!-- Column 3 -->
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-
                 android:orientation="vertical">
 
                 <ImageView
@@ -147,7 +134,6 @@
                     android:layout_height="20dp"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/humidity" />
-
 
                 <TextView
                     android:id="@+id/humidity"
@@ -157,7 +143,6 @@
                     android:text="10%"
                     android:textColor="@android:color/white" />
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -166,8 +151,6 @@
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
-
-            <!-- Add more columns as needed -->
 
         </LinearLayout>
 
